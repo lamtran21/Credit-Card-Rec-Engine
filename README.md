@@ -17,7 +17,7 @@ An end-to-end project that scrapes real credit card data, stores it in a local d
 - Backend:
   - Loads all cards from a local SQLite database
   - Sends them along with the user’s needs to OpenAI GPT
-  - Returns top 3 card matches with concise reasoning
+  - Returns top 3 card matches with concise reasoning based on bonus offer, rewards, APR, annual fee (last scraped July 2025)
 - Frontend displays the results like a chatbot
 
 ---
@@ -30,20 +30,20 @@ An end-to-end project that scrapes real credit card data, stores it in a local d
 
 ## 📁 Project Structure
 
-├── api.py # FastAPI backend
-├── streamlit.py # Streamlit chatbot frontend
-├── llm_card_matcher.py # Core logic: fetch cards + OpenAI prompt
-├── load_to_db.py # Load scraped data into cards.db
-├── cards.db # SQLite database of credit cards
-├── scrapers/ # Scraping logic for Amex, Chase, Citi
-│ ├── scraper_amex.py
-│ ├── scraper_chase.py
-│ └── scraper_citi.py
-├── requirements.txt # Python dependencies
-├── runtime.txt # Python version for Render
-├── .python-version # Local Python version (used by pyenv)
-├── .gitignore # Ignores .env, .db, venv, etc.
-
+📁 card-matcher/
+├── api.py                 # FastAPI backend
+├── streamlit.py           # Streamlit chatbot frontend
+├── llm_card_matcher.py    # Core logic: fetch cards + build OpenAI prompt
+├── load_to_db.py          # Load scraped data into SQLite
+├── cards.db               # SQLite database of credit card info
+├── requirements.txt       # Python dependencies
+├── runtime.txt            # Python version for deployment
+├── .python-version        # Local Python version (e.g. pyenv)
+├── .gitignore             # Ignores .env, .db, etc.
+└── scrapers/              # Web scrapers for each issuer
+    ├── scraper_amex.py
+    ├── scraper_chase.py
+    └── scraper_citi.py
 
 ---
 
@@ -117,8 +117,8 @@ To update the card database:
 
 ## 🔐 Environment Variables
 
-- `.env` is used for storing your OpenAI key.
-- Make sure it is **not committed to GitHub** (included in `.gitignore`).
+- `.env` is used for storing OpenAI key.
+- It is **not committed to GitHub** (included in `.gitignore`).
 
 ---
 
