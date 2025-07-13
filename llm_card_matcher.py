@@ -3,33 +3,33 @@ import sqlite3
 from openai import OpenAI
 from dotenv import load_dotenv
 
+# Load environment variables
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-def fetch_cards_from_db():
-    conn = sqlite3.connect("cards.db")
+def fetch_cards_from_db(db_path="cards.db"):
+    """Fetch credit cards from SQLite database, filter out blank names."""
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     cursor.execute("SELECT name, bonus, rewards, annual_fee, apr FROM cards")
     rows = cursor.fetchall()
     conn.close()
 
     cards = []
-    for row in rows:
-        name = row[0]
-        if not name or name.strip() == "":
-            continue  # skip blank rows
-
+    for name, bonus, rewards, fee, apr in rows:
+        if not name or not name.strip():
+            continue
         cards.append({
             "name": name.strip(),
-            "bonus": row[1],
-            "reward": row[2],
-            "fee": row[3],
-            "apr": row[4]
+            "bonus": bonus,
+            "reward": rewards,
+            "fee": fee,
+            "apr": apr,
         })
-
     return cards
 
 def build_prompt(user_input, cards):
+    """Builds a prompt to feed to the OpenAI LLM."""
     card_descriptions = "\n\n".join([
         f"Name: {c['name']}\nBonus: {c['bonus']}\nRewards: {c['reward']}\nAnnual Fee: {c['fee']}\nAPR: {c['apr']}"
         for c in cards
@@ -45,6 +45,7 @@ Below is a list of credit cards. Recommend the top 3 that best match their needs
 """
 
 def get_top_cards(user_input):
+    """Main entry point: fetch cards, build prompt, call OpenAI, return result."""
     cards = fetch_cards_from_db()
     prompt = build_prompt(user_input, cards)
 
