@@ -30,7 +30,8 @@ An end-to-end project that scrapes real credit card data, stores it in a local d
 
 ## 📁 Project Structure
 
-📁 card-matcher/
+<pre>
+Credit-Card-Rec-Engine/
 ├── api.py                 # FastAPI backend
 ├── streamlit.py           # Streamlit chatbot frontend
 ├── llm_card_matcher.py    # Core logic: fetch cards + build OpenAI prompt
@@ -44,7 +45,7 @@ An end-to-end project that scrapes real credit card data, stores it in a local d
     ├── scraper_amex.py
     ├── scraper_chase.py
     └── scraper_citi.py
-
+</pre>
 ---
 
 ## 📦 Tech Stack
@@ -78,7 +79,7 @@ Output (from OpenAI via backend):
 
 ```bash
 git clone https://github.com/lamtran21/Credit-Card-Rec-Engine.git
-cd card-matcher
+cd Credit-Card-Rec-Engine
 python -m venv venv
 venv\Scripts\activate  # On Windows
 pip install -r requirements.txt
