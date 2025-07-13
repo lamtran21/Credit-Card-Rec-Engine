@@ -23,7 +23,7 @@ if prompt := st.chat_input("What kind of credit card are you looking for?"):
     # Send to FastAPI
     try:
         response = requests.post(
-            "https://card-matcher-api.onrender.com",
+            "https://card-matcher-api.onrender.com/match_cards",
             json={"user_input": prompt},
             timeout=30
         )

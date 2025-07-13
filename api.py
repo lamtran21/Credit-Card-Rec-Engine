@@ -8,8 +8,8 @@ app = FastAPI()
 # Allow Streamlit frontend to access this API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Change to specific domain in production
-    allow_methods=["*"],
+    allow_origins=["https://credit-card-rec-engine.streamlit.app/"],  # Change to specific domain in production
+    allow_methods=["POST"],
     allow_headers=["*"],
 )
 
