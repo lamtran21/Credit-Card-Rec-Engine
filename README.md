@@ -24,7 +24,7 @@ An end-to-end project that scrapes real credit card data, stores it in a local d
 
 ## 🚀 Live Demo
 
-🔗 **Frontend (Streamlit)**: [https://credit-card-rec-engine.streamlit.app/](#)
+🔗 **Frontend (Streamlit)**: [https://credit-card-rec-engine.streamlit.app/]
 
 ---
 
